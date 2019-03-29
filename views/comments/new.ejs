@@ -2,9 +2,9 @@
 
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center;">Add new comment to: <%= Teacher.name %></h1>
+        <h1 style="text-align: center;">Add new comment to: <%= Senior.name %></h1>
         <div style="width:30%; margin: 25px auto;">
-            <form action="/teachers/<%= Teacher._id %>/comments" method="POST">
+            <form action="/seniors/<%= Senior._id %>/comments" method="POST">
                 <div class="form-group">
                     <input class="form-control" type="text" name="comment[text]" placeholder="Comment text">
                 </div>
@@ -12,7 +12,7 @@
                      <button class="btn btn-large btn-primary btn-block">Submit!</button>
                 </div>
             </form>
-            <a href="/teachers">Go back</a>
+            <a href="/seniors">Go back</a>
         </div>
     </div>
 </div>

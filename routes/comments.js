@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router({mergeParams: true});
-var Teacher = require("../models/teacher");
+var Senior = require("../models/senior");
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
 
@@ -9,21 +9,21 @@ var middleware = require("../middleware");
 //*************************
 
 router.get("/new", middleware.isLoggedIn, function(req, res) {
-    Teacher.findById(req.params.id, function(err, Teacher){
+    Senior.findById(req.params.id, function(err, Senior){
         if (err) {
             console.log(err);
         } 
         else {
-             res.render("comments/new", {Teacher:Teacher});
+             res.render("comments/new", {Senior:Senior});
         }
     });
 });
 
 // Comments create
 router.post("/", middleware.isLoggedIn, function(req, res){
-    Teacher.findById(req.params.id, function(err, Teacher) {
+    Senior.findById(req.params.id, function(err, Senior) {
        if(err){
-           res.redirect("/teachers");
+           res.redirect("/seniors");
        } 
        else {
            Comment.create(req.body.comment, function(err, comment){
@@ -37,10 +37,10 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                   comment.author.username = req.user.username;
                   //save comment
                   comment.save();
-                  Teacher.comments.push(comment);
-                  Teacher.save();
+                  Senior.comments.push(comment);
+                  Senior.save();
                   req.flash("success", "Successfully added comment!");
-                  res.redirect("/teachers/" + Teacher._id);
+                  res.redirect("/seniors/" + Senior._id);
               }
            });
        }
@@ -54,7 +54,7 @@ router.get("/:comment_id/edit",function(req, res){
         if(err){
             res.redirect("back");
         } else {
-           res.render("comments/edit", {Teacher_id: req.params.id, comment: foundComment}); 
+           res.render("comments/edit", {Senior_id: req.params.id, comment: foundComment}); 
         }
     });
 });
@@ -66,7 +66,7 @@ router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res){
             res.redirect("back");
         } 
         else {
-            res.redirect("/teachers/" + req.params.id);
+            res.redirect("/seniors/" + req.params.id);
         }
     });
 });
@@ -79,7 +79,7 @@ router.delete("/:comment_id", middleware.checkCommentOwnership, function(req, re
         }
         else {
             req.flash("success", "Comment deleted!");
-            res.redirect("/teachers/" + req.params.id);
+            res.redirect("/seniors/" + req.params.id);
         }
     });
 });

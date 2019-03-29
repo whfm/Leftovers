@@ -1,7 +1,7 @@
 {
-  "name": "IRMT",
+  "name": "O-RA",
   "version": "1.0.0",
-  "description": "IRMT v1",
+  "description": "O-RA v1",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

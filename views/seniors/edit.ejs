@@ -1,0 +1,71 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center;">Editing: <%= Senior.name %></h1>
+        <div style="width:30%; margin: 25px auto;">
+            <form action="/seniors/<%= Senior._id %>/?_method=PUT" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Senior name:</label>
+                    <input class="form-control" type="text" name="name" placeholder="Senior Name" value="<%= Senior.name %>">
+                </div>
+                <div class="form-group">
+                    <label>Current Image</label>
+                    <!--<input class="form-control" disabled type="text" name="" placeholder="Senior Image" value="<%= Senior.image %>">-->
+                    <img src="<%= Senior.image %>" alt="Smiley face" height="60" width="60">
+                </div>
+                <div class="form-group">
+                    <label>New Image?</label>
+                    <input type="file" id="image" name="image" accept="image/*" >
+                </div>
+                <div class="form-group">
+                    <label>Skills</label>
+                    <input class="form-control" type="text" name="skill" placeholder="Senior Skills" value="<%= Senior.skill %>">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input class="form-control" type="text" name="description" placeholder="Senior Description" value="<%= Senior.description %>">
+                </div>
+                <div class="form-group">
+                    <label>Service price:</label>
+                    <input class="form-control" type="text" name="price" placeholder="Service price">
+                </div>
+                <div class="form-group">
+                    <label>The talent person is: </label>
+                    <div class="form-group">
+                    <% if(Senior.personType == "senior") { %>
+                        <input type="radio" id="r1" name="personType" value="senior" checked>
+                    <% } else { %>
+                        <input type="radio" id="r1" name="personType" value="senior">
+                    <% } %>
+                    <label for="r1">Senior offering service</label><br>
+                    <% if(Senior.personType == "young") { %>
+                        <input type="radio" id="r2" name="personType" value="young" checked>
+                    <% } else { %>
+                        <input type="radio" id="r2" name="personType" value="young">
+                    <% } %>
+                    <label for="r2">Young offering service</label><br>
+                    <% if(Senior.personType == "company") { %>
+                        <input type="radio" id="r3" name="personType" value="company" checked>
+                    <% } else { %>
+                        <input type="radio" id="r3" name="personType" value="company">
+                    <% } %>
+                    <label for="r3">Company Service Provider</label><br>
+                    <% if(Senior.personType == "entertainment") { %>
+                        <input type="radio" id="r4" name="personType" value="entertainment" checked>
+                    <% } else { %>
+                        <input type="radio" id="r4" name="personType" value="entertainment">
+                    <% } %>
+                    <label for="r4">Company Entertainment Provider</label><br>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-large btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+            <a href="/seniors">Go back</a>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

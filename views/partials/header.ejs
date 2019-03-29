@@ -3,45 +3,17 @@
     <head>
         <!-- Make site responsive on mobile/tablet -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>I RATE MY Teacher</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <title>O-Ra - Cheerishing moments</title>
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+        <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" href="/stylesheets/main.css">
+        <link rel="icon" href="https://res.cloudinary.com/walterhenrike/image/upload/v1553636212/vln5htibucfbvsrak99n.jpg">
     </head>
     <body>
         
-    <!--<nav class="navbar navbar-default">-->
-    <!--    <div class="container">-->
-    <!--        <div class="navbar-header">-->
-    <!--            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">-->
-    <!--              <span class="sr-only">Toggle navigation</span>-->
-    <!--              <span class="icon-bar"></span>-->
-    <!--              <span class="icon-bar"></span>-->
-    <!--              <span class="icon-bar"></span>-->
-    <!--            </button>-->
-    
-    <!--            <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-superscript" aria-hidden="true" style="font-size: 80%;"></span> - IRMT</a>-->
-    <!--        </div>-->
-    <!--        <div id="navbar" class="collapse navbar-collapse">-->
-    <!--          <ul class="nav navbar-nav">-->
-    <!--            <li class="<%= typeof page !== 'undefined' && page === 'teachers' ? 'active' : '' %>"><a href="/teachers">Home</a></li>-->
-    <!--          </ul>-->
-    <!--          <ul class="nav navbar-nav navbar-right">-->
-                  
-                  
-    <!--              <% if(!currentUser){ %>-->
-    <!--                  <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Login</a></li>-->
-    <!--                  <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Sign Up</a></li>-->
-    <!--              <% } else { %>-->
-    <!--                  <li><a href="/users/<%= currentUser.id %>">Signed in as: <%= currentUser.username %></a></li>-->
-    <!--                  <li><a href="/users/<%= currentUser.id %>/edit">Edit Profile</a></li>-->
-    <!--                  <li><a href="/logout">Logout</a></li>-->
-    <!--              <% } %>-->
-    <!--          </ul>-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <!--</nav>-->
-    <nav class="navbar navbar-default">
+
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -51,26 +23,26 @@
                   <span class="icon-bar"></span>
                 </button>
     
-                <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-superscript" aria-hidden="true" style="font-size: 80%;"></span> - IRMT</a>
+                <a class="navbar-brand" href="/"><span class="fa fa-hand-holding-heart" aria-hidden="true" style="font-size: 100%;"></span>&nbsp&nbsp&nbsp&nbspO-Ra</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
-              <ul class="nav navbar-nav">
-                <li class="<%= typeof page !== 'undefined' && page === 'teachers' ? 'active' : '' %>"><a href="/teachers">Home</a></li>
-              </ul>
-              
+
+              <ul class="nav navbar-nav navbar-right">
+                    <li class="<%= typeof page !== 'undefined' && page === 'aboutus' ? 'active' : '' %>"><a href="/aboutus"><i class="fas fa-info-circle"></i> About Us</a></li>
+                </ul>
             
               <ul class="nav navbar-nav navbar-right">
 
                   
                   
                   <% if(!currentUser){ %>
-                      <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Login</a></li>
-                      <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Sign Up</a></li>
+                      <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                      <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register"><i class="fas fa-user-plus"></i> Sign Up</a></li>
                   <% } else { %>
                   
                   <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Signed in as: <%= currentUser.username %> <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> Signed in as: <%= currentUser.username %> <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="/users/<%= currentUser.id %>">View my profile</a></li>
                     <li><a href="/users/<%= currentUser.id %>/edit">Edit my profile</a></li>
@@ -83,6 +55,37 @@
                       
                   <% } %>
               </ul>
+              
+
+              
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Talents
+                        <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li class="<%= typeof page !== 'undefined' && page === 'seniors' ? 'active' : '' %>"><a href="/seniors">Experienced Talents</a></li>
+                    <li class="<%= typeof page !== 'undefined' && page === 'young' ? 'active' : '' %>"><a href="/seniors/indexyoung">Young Talents</a></li>
+                    <li class="<%= typeof page !== 'undefined' && page === 'allcombined' ? 'active' : '' %>"><a href="/seniors/allcombined">All Talents</a></li>
+                </ul>
+              </ul>
+              
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Services
+                        <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li class="<%= typeof page !== 'undefined' && page === 'company' ? 'active' : '' %>"><a href="/seniors/indexcompany">Service Provider</a></li>
+                    <li class="<%= typeof page !== 'undefined' && page === 'entertainment' ? 'active' : '' %>"><a href="/seniors/indexentertainment">Entertainment Provider</a></li>
+                    <li class="<%= typeof page !== 'undefined' && page === 'allcombined' ? 'active' : '' %>"><a href="/seniors/allcombined">All Talents</a></li>
+                </ul>
+                
+                
+              </ul>
+              
+
+              
+              
+              
             </div>
         </div>
     </nav>
@@ -99,4 +102,8 @@
                 <%= success %>
             </div>
         <% } %>
+    </div>
+    
+    <div style="margin-top: 3%">
+        
     </div>

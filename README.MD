@@ -1,5 +1,5 @@
-<h1>Teacher Reviews</h1>
-A platform to help students, parents and teachers make informed decisions within education.
+<h1>Senior Reviews</h1>
+A platform to help students, parents and seniors make informed decisions within education.
 <h2>Technologies Utilized</h2>
 <img src="http://i.imgur.com/3gSRLVj.png">
 <img src="http://i.imgur.com/486zTVe.jpg">
@@ -9,7 +9,7 @@ A platform to help students, parents and teachers make informed decisions within
 <img src="http://i.imgur.com/nrnczLC.jpg">
 <br>
 
-# I Rate My Teacher
+# I Rate My Senior
 
 > A Node.js web application project.
 
@@ -37,13 +37,13 @@ To see the app in action, go to [https://irmt.herokuapp.com/](https://irmt.herok
 
   * Admin can manage all posts and comments
 
-* Manage teachers with basic functionalities:
+* Manage seniors with basic functionalities:
 
   * Create, edit and delete posts and comments
 
-  * Upload teachers photos
+  * Upload seniors photos
   
-  * Search existing teachers
+  * Search existing seniors
 
 * Manage user account with basic functionalities:
 

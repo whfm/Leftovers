@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
-var Teacher = require("../models/teacher");
+var Senior = require("../models/senior");
 var async = require("async");
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
@@ -36,7 +36,7 @@ cloudinary.config({
 
 
 
-//INDEX - show all Teachers
+//INDEX - show all Seniors
 router.get("/", function(req, res) {
     res.render("landing");
 });
@@ -136,7 +136,7 @@ router.post("/register", upload.single('image'), function(req, res, next){
       var mailOptions = {
         to: user.email,
         from: 'noreply@iratemyteacher.com',
-        subject: 'iRateMyTeacher Account Verification',
+        subject: 'iratemyteacher Account Verification',
         text: 'You are receiving this because you (or someone else) has registered a new account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
           'http://' + req.headers.host + '/verified/' + token + '\n\n' +
@@ -185,8 +185,8 @@ router.post("/regadm", upload.single('image'), function(req, res){
             return res.render("register", {error: err.message});
         }
         passport.authenticate("local")(req, res, function(){
-           req.flash("success", "Welcome to IRMT " + req.body.username);
-           res.redirect("/teachers"); 
+           req.flash("success", "Welcome to O-RA " + req.body.username);
+           res.redirect("/seniors"); 
         });
     });
   });
@@ -197,6 +197,19 @@ router.post("/regadm", upload.single('image'), function(req, res){
 router.get("/login", function(req, res){
     res.render("login", {page: 'login'}); 
 });
+
+router.get("/choose", function(req, res){
+    res.render("choose", {page: 'choose'}); 
+});
+
+router.get("/networking", function(req, res){
+    res.render("networking", {page: 'networking'}); 
+});
+
+router.get("/aboutus", function(req, res){
+    res.render("aboutus", {page: 'aboutus'}); 
+});
+
 
 // HANDLING LOGIN LOGIC
 
@@ -212,8 +225,8 @@ router.post('/login', function(req, res, next) {
     }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
-      req.flash("success", "Successfully logged in, welcome to IRMT!");
-      var redirectTo = req.session.redirectTo ? req.session.redirectTo : '/teachers';
+      req.flash("success", "Successfully logged in, welcome to O-RA!");
+      var redirectTo = req.session.redirectTo ? req.session.redirectTo : '/seniors';
       delete req.session.redirectTo;
       res.redirect(redirectTo);
     });
@@ -224,7 +237,7 @@ router.post('/login', function(req, res, next) {
 router.get("/logout", function(req, res) {
     req.logout();
     req.flash("success","Logged you out!");
-    res.redirect("/teachers");
+    res.redirect("/seniors");
 });
 
 // Middleware
@@ -278,7 +291,7 @@ router.post('/forgot', function(req, res, next) {
       var mailOptions = {
         to: user.email,
         from: 'noreply@iratemyteacher.com',
-        subject: 'iRateMyTeacher Password Reset',
+        subject: 'iratemyteacher Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
           'http://' + req.headers.host + '/reset/' + token + '\n\n' +
@@ -371,7 +384,7 @@ router.post('/reset/:token', function(req, res) {
         req.flash("error", "Something went wrong.");
         res.redirect("/");
       }
-    res.redirect('/teachers');
+    res.redirect('/seniors');
   });
 });
 
@@ -382,12 +395,12 @@ router.get("/users/:id", function(req, res) {
       req.flash("error", "Something went wrong.");
       return res.redirect("/");
     }
-    Teacher.find().where('author.id').equals(foundUser._id).exec(function(err, teachers) {
+    Senior.find().where('author.id').equals(foundUser._id).exec(function(err, seniors) {
       if(err) {
         req.flash("error", "Something went wrong.");
         return res.redirect("/");
       }
-      res.render("users/show", {user: foundUser, teachers: teachers});
+      res.render("users/show", {user: foundUser, seniors: seniors});
     })
   });
 });
@@ -435,7 +448,7 @@ router.post('/verify', function(req, res, next) {
       var mailOptions = {
         to: user.email,
         from: 'noreply@iratemyteacher.com',
-        subject: 'iRateMyTeacher - new verification code',
+        subject: 'iratemyteacher - new verification code',
         text: 'You are receiving this because you (or someone else) have requested a new verification code for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
           'http://' + req.headers.host + '/verified/' + token + '\n\n' +
@@ -467,7 +480,7 @@ router.get('/verified/:token', function(req, res) {
       }
         if (!user) {
           req.flash('error', 'Verification token is invalid, has expired or the account is already verified.');
-          return res.redirect('/teachers');
+          return res.redirect('/seniors');
         }
         if("a" === "a") {
           if(err) {
@@ -518,7 +531,7 @@ router.get('/verified/:token', function(req, res) {
         req.flash("error", "Something went wrong.");
         res.redirect("/");
       }
-    res.redirect('/teachers');
+    res.redirect('/seniors');
   })};
 });
 
@@ -526,7 +539,7 @@ router.get('/verified/:token', function(req, res) {
 //EDIT ROUTE
 
 router.get("/users/:id/edit", middleware.isLoggedIn, function(req, res){
-  //render edit template with that Teacher
+  //render edit template with that Senior
   res.render("users/edit", {user: req.user});
 });
 

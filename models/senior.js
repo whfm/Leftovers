@@ -1,11 +1,12 @@
 var mongoose = require("mongoose");
  
-var TeacherSchema = new mongoose.Schema({
+var SeniorSchema = new mongoose.Schema({
    name: String,
    price: String,
    image: String,
    imageId: String,
    description: String,
+   personType: String,
    createdAt: { type: Date, default: Date.now },
    author: {
       id:{
@@ -29,7 +30,8 @@ var TeacherSchema = new mongoose.Schema({
    rating: {
      type: Number,
      default: 0
-   }
+   },
+   skill: String
 });
  
-module.exports = mongoose.model("Teacher", TeacherSchema);
+module.exports = mongoose.model("Senior", SeniorSchema);

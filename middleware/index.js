@@ -1,6 +1,6 @@
 //ALL THE MIDDLEWARE GOES HERE
 
-var Teacher = require("../models/teacher");
+var Senior = require("../models/senior");
 var Comment = require("../models/comment");
 var User = require("../models/user")
 var Review = require("../models/review");
@@ -8,21 +8,21 @@ var middlewareObj = {
 
 };
 
-middlewareObj.checkTeacherOwnership = function(req, res, next){
+middlewareObj.checkSeniorOwnership = function(req, res, next){
     if (req.isAuthenticated()){
-        Teacher.findById(req.params.id, function(err, foundTeacher){
-            if(err || !foundTeacher){
+        Senior.findById(req.params.id, function(err, foundSenior){
+            if(err || !foundSenior){
                 console.log(err);
-                req.flash('error', 'Sorry, that Teacher does not exist!');
-                res.redirect('/teachers');
+                req.flash('error', 'Sorry, that Senior does not exist!');
+                res.redirect('/seniors');
             }
-            else if(foundTeacher.author.id.equals(req.user._id) || req.user.isAdmin){
-                req.Teacher = foundTeacher;
+            else if(foundSenior.author.id.equals(req.user._id) || req.user.isAdmin){
+                req.Senior = foundSenior;
                 next();
             }
             else {
                 req.flash('error', 'You don\'t have permission to do that!');
-                res.redirect('/teachers/' + req.params.id);
+                res.redirect('/seniors/' + req.params.id);
             }
         });
     }
@@ -34,7 +34,7 @@ middlewareObj.checkCommentOwnership = function(req, res, next){
             if(err){
                 res.redirect("back");
             } else{
-                if(foundComment.author.id.equals(req.user._id) || req.user.isAdmin){ //does user owns the Teacher
+                if(foundComment.author.id.equals(req.user._id) || req.user.isAdmin){ //does user owns the Senior
                     next();
                 } else {
                     res.redirect("back");
@@ -101,7 +101,7 @@ middlewareObj.checkReviewOwnership = function(req, res, next) {
 
 middlewareObj.checkReviewExistence = function (req, res, next) {
     if (req.isAuthenticated()) {
-        Teacher.findById(req.params.id).populate("reviews").exec(function (err, foundCampground) {
+        Senior.findById(req.params.id).populate("reviews").exec(function (err, foundCampground) {
             if (err || !foundCampground) {
                 req.flash("error", "Campground not found.");
                 res.redirect("back");
