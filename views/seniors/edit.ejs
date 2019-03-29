@@ -6,8 +6,8 @@
         <div style="width:30%; margin: 25px auto;">
             <form action="/seniors/<%= Senior._id %>/?_method=PUT" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label>Senior name:</label>
-                    <input class="form-control" type="text" name="name" placeholder="Senior Name" value="<%= Senior.name %>">
+                    <label>Talent name:</label>
+                    <input class="form-control" type="text" name="name" placeholder="Talent Name" value="<%= Senior.name %>">
                 </div>
                 <div class="form-group">
                     <label>Current Image</label>
@@ -19,16 +19,16 @@
                     <input type="file" id="image" name="image" accept="image/*" >
                 </div>
                 <div class="form-group">
-                    <label>Skills</label>
-                    <input class="form-control" type="text" name="skill" placeholder="Senior Skills" value="<%= Senior.skill %>">
+                    <label>What do you offer ? Separete by coma</label>
+                    <input class="form-control" type="text" name="skill" placeholder="Talent Skills" value="<%= Senior.skill %>">
                 </div>
                 <div class="form-group">
                     <label>Description</label>
-                    <input class="form-control" type="text" name="description" placeholder="Senior Description" value="<%= Senior.description %>">
+                    <input class="form-control" type="text" name="description" placeholder="Talent Description" value="<%= Senior.description %>">
                 </div>
                 <div class="form-group">
                     <label>Service price:</label>
-                    <input class="form-control" type="text" name="price" placeholder="Service price">
+                    <input class="form-control" type="text" name="price" placeholder="Service price" value="<%= Senior.price %>">
                 </div>
                 <div class="form-group">
                     <label>The talent person is: </label>
