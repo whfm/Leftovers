@@ -2,11 +2,11 @@
 
 <div class="container">
     <div class="row">
-        <h1 style="text-align: center;">Add a new talent</h1>
+        <h1 style="text-align: center;">Register new service</h1>
         <div style="width:30%; margin: 25px auto;">
             <form action="/seniors" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label>Talent Name:</label>
+                    <label>Name:</label>
                     <input class="form-control" type="text" name="senior[name]" placeholder="Talent Name">
                 </div>
                 <div class="form-group">
@@ -26,7 +26,7 @@
                     <input class="form-control" type="text" name="senior[price]" placeholder="Service price">
                 </div>
                 <div class="form-group">
-                    <label>Type of talent to register: </label>
+                    <label>Type of service to register: </label>
                     <div class="form-group">
                     <input type="radio" id="r1" name="senior[personType]" value="senior">
                     <label for="r1">Senior offering service</label><br>

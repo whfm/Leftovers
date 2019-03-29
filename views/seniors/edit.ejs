@@ -6,7 +6,7 @@
         <div style="width:30%; margin: 25px auto;">
             <form action="/seniors/<%= Senior._id %>/?_method=PUT" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label>Talent name:</label>
+                    <label>Name:</label>
                     <input class="form-control" type="text" name="name" placeholder="Talent Name" value="<%= Senior.name %>">
                 </div>
                 <div class="form-group">
@@ -31,7 +31,7 @@
                     <input class="form-control" type="text" name="price" placeholder="Service price" value="<%= Senior.price %>">
                 </div>
                 <div class="form-group">
-                    <label>The talent person is: </label>
+                    <label>Type of service: </label>
                     <div class="form-group">
                     <% if(Senior.personType == "senior") { %>
                         <input type="radio" id="r1" name="personType" value="senior" checked>
