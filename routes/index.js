@@ -136,7 +136,7 @@ router.post("/register", upload.single('image'), function(req, res, next){
       var mailOptions = {
         to: user.email,
         from: 'noreply@iratemyteacher.com',
-        subject: 'iratemyteacher Account Verification',
+        subject: 'Ora Generation -  Account Verification',
         text: 'You are receiving this because you (or someone else) has registered a new account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
           'http://' + req.headers.host + '/verified/' + token + '\n\n' +
@@ -291,7 +291,7 @@ router.post('/forgot', function(req, res, next) {
       var mailOptions = {
         to: user.email,
         from: 'noreply@iratemyteacher.com',
-        subject: 'iratemyteacher Password Reset',
+        subject: 'Ora Generation - Password Reset',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
           'http://' + req.headers.host + '/reset/' + token + '\n\n' +
@@ -448,7 +448,7 @@ router.post('/verify', function(req, res, next) {
       var mailOptions = {
         to: user.email,
         from: 'noreply@iratemyteacher.com',
-        subject: 'iratemyteacher - new verification code',
+        subject: 'Ora Generation - New verification code',
         text: 'You are receiving this because you (or someone else) have requested a new verification code for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
           'http://' + req.headers.host + '/verified/' + token + '\n\n' +
