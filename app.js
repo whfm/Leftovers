@@ -22,9 +22,9 @@ var phasesRoutes = require("./routes/phases");
 
 
 
-//mongoose.connect(process.env.DATABASEURL);
+mongoose.connect(process.env.DATABASEURL);
 
-mongoose.connect("mongodb://localhost/27017");
+//mongoose.connect("mongodb://localhost/27017");
 
 app.locals.moment = require('moment');
 app.use(methodOverride("_method"));
