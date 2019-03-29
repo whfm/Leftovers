@@ -1,5 +1,7 @@
-<h1>Senior Reviews</h1>
-A platform to help students, parents and seniors make informed decisions within education.
+<h1>Ora Generation</h1>
+
+“O-RA” is an online platform which is designed to fulfill seniors’ social needs by creating a connection between generations, especially involving and bringing together the senior citizens with younger generations and between each others. This platform will offer four types of services companionship, teaching (transfer-exchange skills), recreational activities, and daily home services that will facilitate senior life. Dedicated to its value proposition, O-RA will be striving into hard work to create a “new” Aura among generations .
+
 <h2>Technologies Utilized</h2>
 <img src="http://i.imgur.com/3gSRLVj.png">
 <img src="http://i.imgur.com/486zTVe.jpg">
@@ -9,13 +11,13 @@ A platform to help students, parents and seniors make informed decisions within 
 <img src="http://i.imgur.com/nrnczLC.jpg">
 <br>
 
-# I Rate My Senior
+# Ora Generation
 
 > A Node.js web application project.
 
 ## Live Demo
 
-To see the app in action, go to [https://irmt.herokuapp.com/](https://irmt.herokuapp.com/)
+To see the app in action, go to [https://orageneration.herokuapp.com/](https://orageneration.herokuapp.com/)
 
 ## Features
 
@@ -37,13 +39,13 @@ To see the app in action, go to [https://irmt.herokuapp.com/](https://irmt.herok
 
   * Admin can manage all posts and comments
 
-* Manage seniors with basic functionalities:
+* Manage talents with basic functionalities:
 
   * Create, edit and delete posts and comments
 
   * Upload seniors photos
   
-  * Search existing seniors
+  * Search existing talents
 
 * Manage user account with basic functionalities:
 
