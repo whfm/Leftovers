@@ -214,6 +214,10 @@ router.get("/networking", function(req, res){
     res.render("networking", {page: 'networking'}); 
 });
 
+router.get("/message", function(req, res){
+    res.render("message", {page: 'message'}); 
+});
+
 
 // HANDLING LOGIN LOGIC
 
