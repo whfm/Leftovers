@@ -210,6 +210,10 @@ router.get("/aboutus", function(req, res){
     res.render("aboutus", {page: 'aboutus'}); 
 });
 
+router.get("/networking", function(req, res){
+    res.render("networking", {page: 'networking'}); 
+});
+
 
 // HANDLING LOGIN LOGIC
 
