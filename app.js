@@ -19,9 +19,9 @@ var indexRoutes = require("./routes/index");
 var reviewRoutes = require("./routes/reviews");
 
 
-//mongoose.connect(process.env.DATABASEURL);
+mongoose.connect(process.env.DATABASEURL);
 
-mongoose.connect("mongodb://localhost/27017");
+//mongoose.connect("mongodb://localhost/27017");
 
 app.locals.moment = require('moment');
 app.use(methodOverride("_method"));
@@ -61,6 +61,6 @@ app.use("/recipes/:id/reviews", reviewRoutes);
 //Starts the server
 
 app.listen(process.env.PORT, process.env.IP, function() {
-    console.log("The O-RA server has started!");
+    console.log("The Leftovers server has started!");
 });
 
