@@ -14,48 +14,49 @@
         </div>
         <div class="col-md-9">
             <div class="thumbnail">
-                <img class="img-responsive" src="<%= Senior.image %>">
+                <img class="img-responsive" src="<%= Recipe.image %>">
                 <div class="caption-full">
-                    <h4><a><%=Senior.name%></a></h4>
-                    <p><%= Senior.description %></p><p class="pull-right">Service price: <%= Senior.price %>$</p>
-                    <p><em>Added by: <strong><a href="/users/<%= Senior.author.id %>"><%= Senior.author.username %></a></strong>, <%= moment(Senior.createdAt).fromNow() %></em></p>
-                    <% if((currentUser && Senior.author.id.equals(currentUser._id)) || (currentUser && currentUser.isAdmin)) { %>
-                        <a class="btn btn-xs btn-warning" href="/seniors/<%= Senior._id %>/edit">Edit</a>
-                        <form id="delete-form" action="/seniors/<%= Senior._id %>?_method=DELETE" method="POST">
+                    <h4><b>Recipe Name: <a><%=Recipe.name%></a></b></h4><p class="pull-right">Cost to prepare: <%= Recipe.price %>$</p>
+                    <div style="margin-top: 10px;">
+                        <b>Ingredients: </b>
+                        <% if(Recipe.skill) { for (var i = 0; i < Recipe.skill.split(",").length; i++) { %> <p><i class="fas fa-hamburger"></i> <%= Recipe.skill.split(",")[i] %></p><% } } %>
+                    </div>
+                    <p><b>Description: </b><%= Recipe.description %></p>
+                    <p><b>How to do it: </b><%= Recipe.preparation %></p>
+                    <p><em>Added by: <strong><a href="/users/<%= Recipe.author.id %>"><%= Recipe.author.username %></a></strong>, <%= moment(Recipe.createdAt).fromNow() %></em></p>
+                    <% if((currentUser && Recipe.author.id.equals(currentUser._id)) || (currentUser && currentUser.isAdmin)) { %>
+                        <a class="btn btn-xs btn-warning" href="/recipes/<%= Recipe._id %>/edit">Edit</a>
+                        <form id="delete-form" action="/recipes/<%= Recipe._id %>?_method=DELETE" method="POST">
                             <button class="btn btn-xs btn-danger">Delete</button>
                         </form>
                     <% } %>
-                    <div style="margin-top: 10px;">
-                        <% if(Senior.skill) { for (var i = 0; i < Senior.skill.split(",").length; i++) { %> <p><span class="fa fa-check"></span><%= Senior.skill.split(",")[i] %></p><% } } %>
-                        <a class="btn btn-default" href="/seniors"><i class="fa fa-arrow-left"></i> Go back</a>
-                        <a class="btn btn-danger" href="#">Hire this service</a>
-                    </div>
+                <a class="btn btn-default" href="/recipes"><i class="fa fa-arrow-left"></i> Go back</a>
                 </div>
             </div>
 
             <!--Review section-->
             <div class="thumbnail">
                 <div class="caption-full">
-                    <% if (Senior.rating === 0) { %>
+                    <% if (Recipe.rating === 0) { %>
                     <h5>
                         <em>No reviews yet.</em>
                     </h5>
                     <% } else { %>
                     <p>
                         <span class="fa fa-star checked"></span>
-                        <% if (Senior.rating > 1.5) { %> <span class="fa fa-star checked"></span> <% } %>
-                        <% if (Senior.rating > 2.5) { %> <span class="fa fa-star checked"></span> <% } %>
-                        <% if (Senior.rating > 3.5) { %> <span class="fa fa-star checked"></span> <% } %>
-                        <% if (Senior.rating > 4.5) { %> <span class="fa fa-star checked"></span> <% } %>
+                        <% if (Recipe.rating > 1.5) { %> <span class="fa fa-star checked"></span> <% } %>
+                        <% if (Recipe.rating > 2.5) { %> <span class="fa fa-star checked"></span> <% } %>
+                        <% if (Recipe.rating > 3.5) { %> <span class="fa fa-star checked"></span> <% } %>
+                        <% if (Recipe.rating > 4.5) { %> <span class="fa fa-star checked"></span> <% } %>
 
-                        <em>(total reviews: <%= Senior.reviews.length %>)</em>
+                        <em>(total reviews: <%= Recipe.reviews.length %>)</em>
                     </p>
                     <p>
-                        Current talent rating: <strong><%= Senior.rating.toFixed(2) %></strong>
+                        Current recipe rating: <strong><%= Recipe.rating.toFixed(2) %></strong>
                     </p>
-                    <p><h4>Latest reviews for this talent:</h4></p>
+                    <p><h4>Latest reviews for this recipe:</h4></p>
                     <hr style="margin-top: 0;">
-                    <% Senior.reviews.slice(0, 5).forEach(function(review){ %>
+                    <% Recipe.reviews.slice(0, 5).forEach(function(review){ %>
                     <div class="row">
                         <div class="col-md-3">
                             <span class="fa fa-star checked"></span>
@@ -72,8 +73,8 @@
                             </p>
                             <% if(currentUser && review.author.id.equals(currentUser._id)){ %>
                             <a class="btn btn-xs btn-warning"
-                               href="/seniors/<%=Senior._id %>/reviews/<%=review._id %>/edit">Edit</a>
-                            <form id="delete-form" action="/seniors/<%=Senior._id %>/reviews/<%=review._id %>?_method=DELETE" method="POST">
+                               href="/recipes/<%=Recipe._id %>/reviews/<%=review._id %>/edit">Edit</a>
+                            <form id="delete-form" action="/recipes/<%=Recipe._id %>/reviews/<%=review._id %>?_method=DELETE" method="POST">
                                 <input type="submit" class="btn btn-xs btn-danger" value="Delete">
                             </form>
                             <% } %>
@@ -82,11 +83,11 @@
                     <hr>
                     <% }); %>
                     <div style="margin-bottom: 10px;">
-                        <h4><a href="/seniors/<%= Senior._id %>/reviews"><i class="fa fa-search" aria-hidden="true"></i> See all reviews</a></h4>
+                        <h4><a href="/recipes/<%= Recipe._id %>/reviews"><i class="fa fa-search" aria-hidden="true"></i> See all reviews</a></h4>
                     </div>
                     <% } %>
                     <div>
-                        <a class="btn btn-primary btn-lg <% if (currentUser && Senior.reviews.some(function (review) {return review.author.id.equals(currentUser._id)})) { %> disabled <% } %>" href="/seniors/<%= Senior._id %>/reviews/new">
+                        <a class="btn btn-primary btn-lg <% if (currentUser && Recipe.reviews.some(function (review) {return review.author.id.equals(currentUser._id)})) { %> disabled <% } %>" href="/recipes/<%= Recipe._id %>/reviews/new">
                             Write a New Review</a>
                     </div>
                 </div>
@@ -95,10 +96,10 @@
             <!--Comment section-->
             <div class="well">
                 <div class="text-right">
-                    <a class="btn btn-success" href="/seniors/<%= Senior._id %>/comments/new">Add New Comment</a>
+                    <a class="btn btn-success" href="/recipes/<%= Recipe._id %>/comments/new">Add New Comment</a>
                 </div>
                 <hr>
-                <% Senior.comments.forEach(function(comment){ %>
+                <% Recipe.comments.forEach(function(comment){ %>
                     <div class="row">
                         <div class="col-md-12">
                             <strong><a href="/users/<%= comment.author.id %>"><%= comment.author.username %></a></strong>
@@ -106,10 +107,10 @@
                             <p>
                                 <%= comment.text %>
                             </p>
-                        <% if((currentUser && Senior.author.id.equals(currentUser._id)) || (currentUser && currentUser.isAdmin)) { %>
+                        <% if((currentUser && Recipe.author.id.equals(currentUser._id)) || (currentUser && currentUser.isAdmin)) { %>
                             <a class="btn btn-xs btn-warning"
-                               href="/seniors/<%=Senior._id %>/comments/<%=comment._id %>/edit">Edit</a>
-                            <form id="delete-form" action="/seniors/<%=Senior._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
+                               href="/recipes/<%=Recipe._id %>/comments/<%=comment._id %>/edit">Edit</a>
+                            <form id="delete-form" action="/recipes/<%=Recipe._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
                                 <input type="submit" class="btn btn-xs btn-danger" value="Delete">
                             </form>
                         <% } %>

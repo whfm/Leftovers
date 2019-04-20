@@ -1,6 +1,6 @@
 //ALL THE MIDDLEWARE GOES HERE
 
-var Senior = require("../models/senior");
+var Recipe = require("../models/recipe");
 var Comment = require("../models/comment");
 var User = require("../models/user")
 var Review = require("../models/review");
@@ -8,21 +8,21 @@ var middlewareObj = {
 
 };
 
-middlewareObj.checkSeniorOwnership = function(req, res, next){
+middlewareObj.checkRecipeOwnership = function(req, res, next){
     if (req.isAuthenticated()){
-        Senior.findById(req.params.id, function(err, foundSenior){
-            if(err || !foundSenior){
+        Recipe.findById(req.params.id, function(err, foundRecipe){
+            if(err || !foundRecipe){
                 console.log(err);
-                req.flash('error', 'Sorry, that Senior does not exist!');
-                res.redirect('/seniors');
+                req.flash('error', 'Sorry, that Recipe does not exist!');
+                res.redirect('/recipes');
             }
-            else if(foundSenior.author.id.equals(req.user._id) || req.user.isAdmin){
-                req.Senior = foundSenior;
+            else if(foundRecipe.author.id.equals(req.user._id) || req.user.isAdmin){
+                req.Recipe = foundRecipe;
                 next();
             }
             else {
                 req.flash('error', 'You don\'t have permission to do that!');
-                res.redirect('/seniors/' + req.params.id);
+                res.redirect('/recipes/' + req.params.id);
             }
         });
     }
@@ -34,7 +34,7 @@ middlewareObj.checkCommentOwnership = function(req, res, next){
             if(err){
                 res.redirect("back");
             } else{
-                if(foundComment.author.id.equals(req.user._id) || req.user.isAdmin){ //does user owns the Senior
+                if(foundComment.author.id.equals(req.user._id) || req.user.isAdmin){ //does user owns the Recipe
                     next();
                 } else {
                     res.redirect("back");
@@ -101,7 +101,7 @@ middlewareObj.checkReviewOwnership = function(req, res, next) {
 
 middlewareObj.checkReviewExistence = function (req, res, next) {
     if (req.isAuthenticated()) {
-        Senior.findById(req.params.id).populate("reviews").exec(function (err, foundCampground) {
+        Recipe.findById(req.params.id).populate("reviews").exec(function (err, foundCampground) {
             if (err || !foundCampground) {
                 req.flash("error", "Campground not found.");
                 res.redirect("back");

@@ -1,0 +1,54 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center;">Register new service</h1>
+        <div style="width:30%; margin: 25px auto;">
+            <form action="/recipes" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Recipe Name:</label>
+                    <input class="form-control" type="text" name="recipe[name]" placeholder="Recipe Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="image">Image:</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label>Description:</label>
+                    <input class="form-control" type="text" name="recipe[description]" placeholder="Recipe Description" required>
+                </div>
+                <div class="form-group">
+                    <label>Preparation:</label>
+                    <input class="form-control" type="text" name="recipe[preparation]" placeholder="Recipe Preparation" required>
+                </div>
+                <div class="form-group">
+                    <label>Ingredients: (use coma to separe the ingredients)</label>
+                    <input class="form-control" type="text" name="recipe[skill]" placeholder="Ingredients" required>
+                </div>
+                <div class="form-group">
+                    <label>Recipe cost:</label>
+                    <input class="form-control" type="text" name="recipe[price]" placeholder="Cost to make" required>
+                </div>
+                <div class="form-group">
+                    <label>Recipe category: </label>
+                    <div class="form-group">
+                    <input type="radio" id="r1" name="recipe[recipeType]" value="breakfast" required>
+                    <label for="r1">Breakfast</label><br>
+                    <input type="radio" id="r2" name="recipe[recipeType]" value="lunch">
+                    <label for="r2">Lunch</label><br>
+                    <input type="radio" id="r3" name="recipe[recipeType]" value="dinner">
+                    <label for="r3">Dinner</label><br>
+                    <input type="radio" id="r4" name="recipe[recipeType]" value="dessert">
+                    <label for="r4">Dessert</label><br>
+                    </div>
+                </div>
+                <div class="form-group">
+                     <button class="btn btn-large btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+            <a href="/recipes">Go back</a>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

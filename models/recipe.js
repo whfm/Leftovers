@@ -1,12 +1,13 @@
 var mongoose = require("mongoose");
  
-var SeniorSchema = new mongoose.Schema({
+var RecipeSchema = new mongoose.Schema({
    name: String,
    price: String,
    image: String,
    imageId: String,
    description: String,
-   personType: String,
+   preparation: String,
+   recipeType: String,
    createdAt: { type: Date, default: Date.now },
    author: {
       id:{
@@ -34,4 +35,4 @@ var SeniorSchema = new mongoose.Schema({
    skill: String
 });
  
-module.exports = mongoose.model("Senior", SeniorSchema);
+module.exports = mongoose.model("Recipe", RecipeSchema);

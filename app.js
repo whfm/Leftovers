@@ -2,7 +2,7 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
-var Senior = require("./models/senior");
+var Recipe = require("./models/recipe");
 var User = require("./models/user");
 var Comment = require("./models/comment");
 var flash = require("connect-flash");
@@ -14,17 +14,14 @@ var methodOverride = require("method-override");
 var LocalStrategy = require("passport-local");
 
 var commentRoutes = require("./routes/comments");
-var SeniorRoutes = require("./routes/seniors");
+var RecipeRoutes = require("./routes/recipes");
 var indexRoutes = require("./routes/index");
 var reviewRoutes = require("./routes/reviews");
 
-var phasesRoutes = require("./routes/phases");
 
+//mongoose.connect(process.env.DATABASEURL);
 
-
-mongoose.connect(process.env.DATABASEURL);
-
-//mongoose.connect("mongodb://localhost/27017");
+mongoose.connect("mongodb://localhost/27017");
 
 app.locals.moment = require('moment');
 app.use(methodOverride("_method"));
@@ -55,10 +52,9 @@ app.use(function(req, res, next){
 });
 
 app.use("/", indexRoutes);
-app.use("/seniors", SeniorRoutes);
-app.use("/seniors/:id/comments", commentRoutes);
-app.use("/seniors/:id/reviews", reviewRoutes);
-app.use("/phases", phasesRoutes);
+app.use("/recipes", RecipeRoutes);
+app.use("/recipes/:id/comments", commentRoutes);
+app.use("/recipes/:id/reviews", reviewRoutes);
 
 
 //=============================================================================

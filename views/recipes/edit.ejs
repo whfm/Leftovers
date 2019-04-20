@@ -1,0 +1,74 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center;">Editing: <%= Recipe.name %></h1>
+        <div style="width:30%; margin: 25px auto;">
+            <form action="/recipes/<%= Recipe._id %>/?_method=PUT" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Recipe name:</label>
+                    <input class="form-control" type="text" name="name" placeholder="Recipe Name" value="<%= Recipe.name %>">
+                </div>
+                <div class="form-group">
+                    <label>Current Image</label>
+                    <img src="<%= Recipe.image %>" alt="Smiley face" height="60" width="60">
+                </div>
+                <div class="form-group">
+                    <label>New Image?</label>
+                    <input type="file" id="image" name="image" accept="image/*" >
+                </div>
+                <div class="form-group">
+                    <label>Ingredients: (use coma to separe the ingredients)</label>
+                    <input class="form-control" type="text" name="skill" placeholder="Recipe Skills" value="<%= Recipe.skill %>">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input class="form-control" type="text" name="description" placeholder="Recipe Description" value="<%= Recipe.description %>">
+                </div>
+                <div class="form-group">
+                    <label>Preparation</label>
+                    <input class="form-control" type="text" name="preparation" placeholder="Recipe Preparation" value="<%= Recipe.preparation %>">
+                </div>
+                <div class="form-group">
+                    <label>Recipe Cost:</label>
+                    <input class="form-control" type="text" name="price" placeholder="Service price" value="<%= Recipe.price %>">
+                </div>
+                <div class="form-group">
+                    <label>Recipe category: </label>
+                    <div class="form-group">
+                    <% if(Recipe.recipeType == "breakfast") { %>
+                        <input type="radio" id="r1" name="recipeType" value="breakfast" checked>
+                    <% } else { %>
+                        <input type="radio" id="r1" name="recipeType" value="breakfast">
+                    <% } %>
+                    <label for="r1">Breakfast</label><br>
+                    <% if(Recipe.recipeType == "lunch") { %>
+                        <input type="radio" id="r2" name="recipeType" value="lunch" checked>
+                    <% } else { %>
+                        <input type="radio" id="r2" name="recipeType" value="lunch">
+                    <% } %>
+                    <label for="r2">Lunch</label><br>
+                    <% if(Recipe.recipeType == "dinner") { %>
+                        <input type="radio" id="r3" name="recipeType" value="dinner" checked>
+                    <% } else { %>
+                        <input type="radio" id="r3" name="recipeType" value="dinner">
+                    <% } %>
+                    <label for="r3">Dinner</label><br>
+                    <% if(Recipe.recipeType == "dessert") { %>
+                        <input type="radio" id="r4" name="recipeType" value="dessert" checked>
+                    <% } else { %>
+                        <input type="radio" id="r4" name="recipeType" value="dessert">
+                    <% } %>
+                    <label for="r4">Dessert</label><br>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-large btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+            <a href="/recipes">Go back</a>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

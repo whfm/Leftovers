@@ -1,40 +1,40 @@
 var express = require("express");
 var router = express.Router({mergeParams: true});
-var Senior = require("../models/senior");
+var Recipe = require("../models/recipe");
 var Review = require("../models/review");
 var middleware = require("../middleware");
 
 // Reviews Index
 router.get("/", function (req, res) {
-    Senior.findById(req.params.id).populate({
+    Recipe.findById(req.params.id).populate({
         path: "reviews",
         options: {sort: {createdAt: -1}} // sorting the populated reviews array to show the latest first
-    }).exec(function (err, senior) {
-        if (err || !senior) {
+    }).exec(function (err, recipe) {
+        if (err || !recipe) {
             req.flash("error", err.message);
             return res.redirect("back");
         }
-        res.render("reviews/index", {senior: senior});
+        res.render("reviews/index", {recipe: recipe});
     });
 });
 
 // Reviews New
 router.get("/new", middleware.isLoggedIn, middleware.checkReviewExistence, function (req, res) {
-    // middleware.checkReviewExistence checks if a user already reviewed the senior, only one review per user is allowed
-    Senior.findById(req.params.id, function (err, senior) {
+    // middleware.checkReviewExistence checks if a user already reviewed the recipe, only one review per user is allowed
+    Recipe.findById(req.params.id, function (err, recipe) {
         if (err) {
             req.flash("error", err.message);
             return res.redirect("back");
         }
-        res.render("reviews/new", {senior: senior});
+        res.render("reviews/new", {recipe: recipe});
 
     });
 });
 
 // Reviews Create
 router.post("/", middleware.isLoggedIn, middleware.checkReviewExistence, function (req, res) {
-    //lookup senior using ID
-    Senior.findById(req.params.id).populate("reviews").exec(function (err, senior) {
+    //lookup recipe using ID
+    Recipe.findById(req.params.id).populate("reviews").exec(function (err, recipe) {
         if (err) {
             req.flash("error", err.message);
             return res.redirect("back");
@@ -44,19 +44,19 @@ router.post("/", middleware.isLoggedIn, middleware.checkReviewExistence, functio
                 req.flash("error", err.message);
                 return res.redirect("back");
             }
-            //add author username/id and associated senior to the review
+            //add author username/id and associated recipe to the review
             review.author.id = req.user._id;
             review.author.username = req.user.username;
-            review.senior = senior;
+            review.recipe = recipe;
             //save review
             review.save();
-            senior.reviews.push(review);
-            // calculate the new average review for the senior
-            senior.rating = calculateAverage(senior.reviews);
-            //save senior
-            senior.save();
+            recipe.reviews.push(review);
+            // calculate the new average review for the recipe
+            recipe.rating = calculateAverage(recipe.reviews);
+            //save recipe
+            recipe.save();
             req.flash("success", "Your review has been successfully added.");
-            res.redirect('/seniors/' + senior._id);
+            res.redirect('/recipes/' + recipe._id);
         });
     });
 });
@@ -79,17 +79,17 @@ router.put("/:review_id", middleware.checkReviewOwnership, function (req, res) {
             req.flash("error", err.message);
             return res.redirect("back");
         }
-        Senior.findById(req.params.id).populate("reviews").exec(function (err, senior) {
+        Recipe.findById(req.params.id).populate("reviews").exec(function (err, recipe) {
             if (err) {
                 req.flash("error", err.message);
                 return res.redirect("back");
             }
-            // recalculate senior average
-            senior.rating = calculateAverage(senior.reviews);
+            // recalculate recipe average
+            recipe.rating = calculateAverage(recipe.reviews);
             //save changes
-            senior.save();
+            recipe.save();
             req.flash("success", "Your review was successfully edited.");
-            res.redirect('/seniors/' + senior._id);
+            res.redirect('/recipes/' + recipe._id);
         });
     });
 });
@@ -101,17 +101,17 @@ router.delete("/:review_id", middleware.checkReviewOwnership, function (req, res
             req.flash("error", err.message);
             return res.redirect("back");
         }
-        Senior.findByIdAndUpdate(req.params.id, {$pull: {reviews: req.params.review_id}}, {new: true}).populate("reviews").exec(function (err, senior) {
+        Recipe.findByIdAndUpdate(req.params.id, {$pull: {reviews: req.params.review_id}}, {new: true}).populate("reviews").exec(function (err, recipe) {
             if (err) {
                 req.flash("error", err.message);
                 return res.redirect("back");
             }
-            // recalculate senior average
-            senior.rating = calculateAverage(senior.reviews);
+            // recalculate recipe average
+            recipe.rating = calculateAverage(recipe.reviews);
             //save changes
-            senior.save();
+            recipe.save();
             req.flash("success", "Your review was deleted successfully.");
-            res.redirect("/seniors/" + req.params.id);
+            res.redirect("/recipes/" + req.params.id);
         });
     });
 });

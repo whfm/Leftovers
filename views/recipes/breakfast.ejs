@@ -1,0 +1,83 @@
+<% include ../partials/header %>
+
+
+<style type="text/css"> 
+    .jumbotron {
+        background-image: url(https://images.unsplash.com/photo-1493807402946-1a3fe6683ff2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80);
+        background-position: center center;
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+    
+    #h1 {
+      color: black;
+      -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: black;
+    }
+
+</style>
+
+    
+<div class="container">
+    <header class="jumbotron vertical-center">
+        <div class="container">
+            <h1 id="h1">LEFTOVERS</h1>
+            <h2 id="h1">BEYOND THE BOUNDARIES OF TASTE</h2>
+        </div>
+    </header>
+    
+    <div class="text-center">
+        <form action="/recipes/" method="GET" class="form-inline" id="Recipe-search">
+            <div class="form-group">
+              <a class="btn btn-primary btn-large" href="/recipes/new">Submit a new recipe!</a>
+              <input type="text" name="search" placeholder="Searching for..." class="form-control">
+              <input type="submit" value="Search" class="btn btn-default btn-outline-success">
+            </div>
+        </form>
+    </div><br>
+    
+    <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+        <% Recipes.forEach(function(recipe){ if (recipe.recipeType == "breakfast") { %>
+        <div class="col-md-12 col-sm-6">
+            <div class="thumbnail">
+                <div class="pull-left" style="magin-top: 30px">
+                    <br>
+                    <img src="<%= recipe.image %>" style="width:25em;">
+                </div>
+                <div class="text-right pull-right">
+                    <div class="caption">
+                        <h4><b><%= recipe.name %></b></h4>
+                        <% if (recipe.rating === 0) { %>
+                        <em>No reviews yet.</em>
+                        <% } else { %>
+                            <span class="fa fa-star checked"></span>
+                            <% if (recipe.rating > 1.5) { %> <span class="fa fa-star checked"></span> <% } %>
+                            <% if (recipe.rating > 2.5) { %> <span class="fa fa-star checked"></span> <% } %>
+                            <% if (recipe.rating > 3.5) { %> <span class="fa fa-star checked"></span> <% } %>
+                            <% if (recipe.rating > 4.5) { %> <span class="fa fa-star checked"></span> <% } %>
+                        <% } %>
+                    </div>
+                    <div class="thumbnail">
+                        <h4 class="text-left">Description:</h4>
+                        <p class="text-left">
+                            <%= recipe.description.substring(0, 100) %>
+                        </p>
+                    </div>
+                    <div class="thumbnail">
+                        <h4 class="text-left"><img src="<%= recipe.image %>" style="width:50px; height:50px">Relevant comment:</h4>
+                        <p>
+                            <% if (recipe.comments.length > 0) { %> <p><%= recipe.comments[0].text.substring(0, 100) %></p><% } %>
+                            <% if (recipe.comments.length == 0) { %> <p> This recipe has no comments yet</p><% } %>
+                        </p>
+                    </div>
+                    <p>
+                        <a href="/recipes/<%= recipe._id %>" class="btn btn-primary"><span class="fa far fa-star"></span> Show me how it is done!</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <% } } ); %>
+    </div>
+</div>
+<% include ../partials/footer %>

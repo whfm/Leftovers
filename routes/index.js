@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
-var Senior = require("../models/senior");
+var Recipe = require("../models/recipe");
 var async = require("async");
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
@@ -36,7 +36,7 @@ cloudinary.config({
 
 
 
-//INDEX - show all Seniors
+//INDEX - show all Recipes
 router.get("/", function(req, res) {
     res.render("landing");
 });
@@ -51,21 +51,6 @@ router.get("/register", function(req, res){
 router.get("/regadm", function(req, res){
     res.render("regadm", {page: 'regadm'}); 
 });
-
-
-
-
-//confirmation and resend
-
-
-
-
-
-
-
-
-
-
 
 
 //HANDLE SIGNUP LOGIC
@@ -185,8 +170,8 @@ router.post("/regadm", upload.single('image'), function(req, res){
             return res.render("register", {error: err.message});
         }
         passport.authenticate("local")(req, res, function(){
-           req.flash("success", "Welcome to O-RA " + req.body.username);
-           res.redirect("/seniors"); 
+           req.flash("success", "Welcome to Leftovers " + req.body.username);
+           res.redirect("/recipes"); 
         });
     });
   });
@@ -198,24 +183,8 @@ router.get("/login", function(req, res){
     res.render("login", {page: 'login'}); 
 });
 
-router.get("/choose", function(req, res){
-    res.render("choose", {page: 'choose'}); 
-});
-
-router.get("/networking", function(req, res){
-    res.render("networking", {page: 'networking'}); 
-});
-
 router.get("/aboutus", function(req, res){
     res.render("aboutus", {page: 'aboutus'}); 
-});
-
-router.get("/networking", function(req, res){
-    res.render("networking", {page: 'networking'}); 
-});
-
-router.get("/message", function(req, res){
-    res.render("message", {page: 'message'}); 
 });
 
 
@@ -233,8 +202,8 @@ router.post('/login', function(req, res, next) {
     }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
-      req.flash("success", "Successfully logged in, welcome to O-RA!");
-      var redirectTo = req.session.redirectTo ? req.session.redirectTo : '/seniors';
+      req.flash("success", "Successfully logged in, welcome to Leftovers!");
+      var redirectTo = req.session.redirectTo ? req.session.redirectTo : '/recipes';
       delete req.session.redirectTo;
       res.redirect(redirectTo);
     });
@@ -245,7 +214,7 @@ router.post('/login', function(req, res, next) {
 router.get("/logout", function(req, res) {
     req.logout();
     req.flash("success","Logged you out!");
-    res.redirect("/seniors");
+    res.redirect("/recipes");
 });
 
 // Middleware
@@ -392,7 +361,7 @@ router.post('/reset/:token', function(req, res) {
         req.flash("error", "Something went wrong.");
         res.redirect("/");
       }
-    res.redirect('/seniors');
+    res.redirect('/recipes');
   });
 });
 
@@ -403,12 +372,12 @@ router.get("/users/:id", function(req, res) {
       req.flash("error", "Something went wrong.");
       return res.redirect("/");
     }
-    Senior.find().where('author.id').equals(foundUser._id).exec(function(err, seniors) {
+    Recipe.find().where('author.id').equals(foundUser._id).exec(function(err, recipes) {
       if(err) {
         req.flash("error", "Something went wrong.");
         return res.redirect("/");
       }
-      res.render("users/show", {user: foundUser, seniors: seniors});
+      res.render("users/show", {user: foundUser, recipes: recipes});
     })
   });
 });
@@ -488,7 +457,7 @@ router.get('/verified/:token', function(req, res) {
       }
         if (!user) {
           req.flash('error', 'Verification token is invalid, has expired or the account is already verified.');
-          return res.redirect('/seniors');
+          return res.redirect('/recipes');
         }
         if("a" === "a") {
           if(err) {
@@ -539,7 +508,7 @@ router.get('/verified/:token', function(req, res) {
         req.flash("error", "Something went wrong.");
         res.redirect("/");
       }
-    res.redirect('/seniors');
+    res.redirect('/recipes');
   })};
 });
 
@@ -547,7 +516,7 @@ router.get('/verified/:token', function(req, res) {
 //EDIT ROUTE
 
 router.get("/users/:id/edit", middleware.isLoggedIn, function(req, res){
-  //render edit template with that Senior
+  //render edit template with that Recipe
   res.render("users/edit", {user: req.user});
 });
 

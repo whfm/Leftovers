@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var Senior = require("./models/senior");
+var Recipe = require("./models/recipe");
 var Comment   = require("./models/comment");
  
 var data = [
@@ -21,24 +21,24 @@ var data = [
 ]
  
 function seedDB(){
-   //Remove all Seniors
-   Senior.remove({}, function(err){
+   //Remove all Recipes
+   Recipe.remove({}, function(err){
         if(err){
             console.log(err);
         }
-        console.log("removed Seniors!");
+        console.log("removed Recipes!");
         Comment.remove({}, function(err) {
             if(err){
                 console.log(err);
             }
             console.log("removed comments!");
-             //add a few Seniors
+             //add a few Recipes
             data.forEach(function(seed){
-                Senior.create(seed, function(err, Senior){
+                Recipe.create(seed, function(err, Recipe){
                     if(err){
                         console.log(err)
                     } else {
-                        console.log("added a Senior");
+                        console.log("added a Recipe");
                         //create a comment
                         Comment.create(
                             {
@@ -48,8 +48,8 @@ function seedDB(){
                                 if(err){
                                     console.log(err);
                                 } else {
-                                    Senior.comments.push(comment);
-                                    Senior.save();
+                                    Recipe.comments.push(comment);
+                                    Recipe.save();
                                     console.log("Created new comment");
                                 }
                             });
